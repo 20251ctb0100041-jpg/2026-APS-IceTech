@@ -1,0 +1,73 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Página-1" id="WPnmOGpC8zA-zr8d0mUT">
+    <mxGraphModel dx="691" dy="776" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="cls_usuario" parent="1" style="endArrow=none;startArrow=diamondThin;startFill=1;html=1; para composição, ou startFill=0" value="Usuario&#xa;--&#xa;- nome: String&#xa;- login: String&#xa;--&#xa;+ autenticar(): boolean" vertex="1">
+          <mxGeometry height="90" width="180" x="320" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="cls_atendente" parent="1" style="endArrow=none;startArrow=diamondThin;startFill=1;html=1; para composição, ou startFill=0" value="Atendente" vertex="1">
+          <mxGeometry height="70" width="160" x="180" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="cls_gerente" parent="1" style="endArrow=none;startArrow=diamondThin;startFill=1;html=1; para composição, ou startFill=0" value="Gerente" vertex="1">
+          <mxGeometry height="70" width="160" x="480" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="cls_pedido" parent="1" style="endArrow=none;startArrow=diamondThin;startFill=1;html=1; para composição, ou startFill=0" value="Pedido&#xa;--&#xa;- numero: int&#xa;- dataHora: Data&#xa;- valorTotal: double&#xa;--&#xa;+ calcularTotal(): double&#xa;+ fecharPedido(): void" vertex="1">
+          <mxGeometry height="120" width="180" x="170" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="cls_itempedido" parent="1" style="endArrow=none;startArrow=diamondThin;startFill=1;html=1; para composição, ou startFill=0" value="&lt;div&gt;ItemPedido&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- quantidade: int&lt;/div&gt;&lt;div&gt;- subtotal: double&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ calcularSubtotal(): double&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="190" x="450" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="cls_sabor" parent="1" style="endArrow=none;startArrow=diamondThin;startFill=1;html=1; para composição, ou startFill=0" value="&lt;div&gt;Sabor&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;-nome: String&lt;/div&gt;&lt;div&gt;- precoUnitario: double&lt;/div&gt;&lt;div&gt;- quantidadeEstoque: int&lt;/div&gt;&lt;div&gt;--&lt;/div&gt;&lt;div&gt;+ atualizarEstoque(qtd: int): void&lt;/div&gt;&lt;div&gt;+ estaDisponivel(): boolean&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="230" x="430" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="h_atendente" edge="1" parent="1" source="cls_atendente" style="endArrow=none;startArrow=diamondThin;startFill=1;html=1; para composição, ou startFill=0" target="cls_usuario">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="h_gerente" edge="1" parent="1" source="cls_gerente" style="endArrow=none;startArrow=diamondThin;startFill=1;html=1; para composição, ou startFill=0" target="cls_usuario">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="assoc_atendente_pedido" edge="1" parent="1" source="cls_atendente" style="endArrow=none;startArrow=diamondThin;startFill=1;html=1; para composição, ou startFill=0" target="cls_pedido" value="registra">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m_atendente" connectable="0" parent="assoc_atendente_pedido" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" value="1" vertex="1">
+          <mxGeometry relative="1" x="-0.8" as="geometry">
+            <mxPoint x="5" y="-5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m_pedido_atendente" connectable="0" parent="assoc_atendente_pedido" style="edgeLabel;resizable=0;html=1;align=right;verticalAlign=bottom;" value="0..*" vertex="1">
+          <mxGeometry relative="1" x="0.8" as="geometry">
+            <mxPoint x="-5" y="-5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="comp_pedido_item" edge="1" parent="1" source="cls_pedido" style="endArrow=none;startArrow=diamondThin;startFill=1;html=1; para composição, ou startFill=0" target="cls_itempedido" value="contém">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m_pedido_comp" connectable="0" parent="comp_pedido_item" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" value="1" vertex="1">
+          <mxGeometry relative="1" x="-0.8" as="geometry">
+            <mxPoint x="10" y="-5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m_item_comp" connectable="0" parent="comp_pedido_item" style="edgeLabel;resizable=0;html=1;align=right;verticalAlign=bottom;" value="1..*" vertex="1">
+          <mxGeometry relative="1" x="0.8" as="geometry">
+            <mxPoint x="-10" y="-5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="assoc_item_sabor" edge="1" parent="1" source="cls_itempedido" style="endArrow=none;startArrow=diamondThin;startFill=1;html=1; para composição, ou startFill=0" target="cls_sabor" value="refere-se a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m_item_sabor" connectable="0" parent="assoc_item_sabor" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" value="*" vertex="1">
+          <mxGeometry relative="1" x="-0.8" as="geometry">
+            <mxPoint x="5" y="-5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m_sabor_item" connectable="0" parent="assoc_item_sabor" style="edgeLabel;resizable=0;html=1;align=right;verticalAlign=bottom;" value="1" vertex="1">
+          <mxGeometry relative="1" x="0.8" as="geometry">
+            <mxPoint x="-5" y="-5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
