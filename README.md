@@ -12,7 +12,7 @@ IFPR, Centro de Referência Ponta Grossa. Técnico em Informática Integrado ao 
 <!-- Três a cinco frases para quem nunca ouviu falar do seu sistema. Qual é o problema, para quem, e o que o sistema faz a respeito.
      Escreva depois de terminar a 4.1. É um resumo dela, com as suas palavras. -->
 
-_Escreva aqui a apresentação do projeto._
+O IceTech é um sistema para a Sorveteria do Chico que automatiza a venda de sorvete e o controlo de estoque, ele regista os pedidos no caixa com cálculo automático do total e dá baixa no stock a cada venda, eliminando filas e erros manuais.gestão da loja.
 
 ## Documento do projeto
 
