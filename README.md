@@ -1,60 +1,57 @@
-# IceTech: Sistema para pedidos e controle de estoque de uma sorveteria
+# 4.2.4 Modelagem de Sequência
 
-Projeto Integrador de Análise e Projeto de Sistemas, 2026.
-IFPR, Centro de Referência Ponta Grossa. Técnico em Informática Integrado ao Ensino Médio.
+## Do fluxo às mensagens
 
-**Autoria:** OTAVIO AUGUSTO MACHADO OTT
+O diagrama de sequência conta um cenário do caso de uso como uma conversa. Ele mostra quem pede o quê a quem, em que ordem, e o que volta. O cenário é o fluxo principal de **UC02 – Registrar Pedido**, da 4.2.2. Os participantes são as classes da 4.2.3.
 
-**Cliente:** Chico, Gerente da sorveteria
+Três regras de tradução. Cada passo do atendente vira uma mensagem dele para o Sistema, com o nome da ação da 4.2.5. Cada passo do sistema vira uma mensagem do Sistema para a classe que tem a operação, com o nome da operação e os parênteses. E cada resposta volta numa seta tracejada, para quem perguntou.
 
-## Apresentação do projeto
+A linha de vida `:Sistema` é a raia do Sistema da 4.2.5. Ela representa a tela e o que coordena as classes. Não é uma classe da 4.2.3, porque interface não entra lá.
 
-<!-- Três a cinco frases para quem nunca ouviu falar do seu sistema. Qual é o problema, para quem, e o que o sistema faz a respeito.
-     Escreva depois de terminar a 4.1. É um resumo dela, com as suas palavras. -->
+| No fluxo da 4.2.2 | Vira a mensagem | De quem para quem | Por quê |
+|---|---|---|---|
+| passo 1: o atendente identifica o sabor | **Identificar o sabor** | Atendente → :Sistema | passo do ator é mensagem dele para o Sistema. O nome é o da ação da 4.2.5, sem parênteses |
+| passo 2: o sistema verifica a disponibilidade do sabor no estoque | **estaDisponivel()** e o retorno _disponível ou não_ | :Sistema → :Sabor | quem sabe a quantidade disponível em estoque é a classe `Sabor`. A resposta decide o fragmento |
+| passo 3: o atendente informa a quantidade e adiciona o item | **Informar quantidade e adicionar item** | Atendente → :Sistema | passo do ator entrando com dados no balcão |
+| passo 4: o sistema calcula o subtotal e o valor total do pedido | **calcularSubtotal()** e **calcularTotal()**, e os retornos _subtotal_ e _valor total_, que segue até o balcão | :Sistema → :ItemPedido e :Sistema → :Pedido, e o total volta ao Atendente | cada classe calcula a parte que lhe cabe: o item calcula seu subtotal e o pedido consolida o total |
+| passo 5: o atendente confirma o fechamento do pedido | **Confirmar fechamento do pedido** | Atendente → :Sistema | passo do ator validando o fechamento da venda |
+| passo 6: o sistema registra o pedido e atualiza a quantidade em estoque | **fecharPedido()** e **baixarEstoque()**, e o retorno _pedido registrado_ | :Sistema → :Pedido e :Sistema → :Sabor, e confirmação ao Atendente | um passo com duas responsabilidades vira duas mensagens: uma para fechar o pedido e outra para abater o estoque |
+| E1: sabor sem estoque suficiente, o sistema avisa e encerra | fragmento **alt** com duas guardas: [sabor disponível] cobre os passos 3 a 6, e [senão] traz o retorno _sabor sem estoque suficiente_ | :Sistema → Atendente | o alt diz que só um dos dois andares acontece. É a decisão _sabor disponível?_ da 4.2.5 |
+| A1: adicionar outro sabor ao mesmo pedido | fica fora do desenho | nenhuma mensagem | já está representado por junção na Figura 5. O diagrama de sequência foca no fluxo linear principal |
 
-O IceTech é um sistema para a Sorveteria do Chico que automatiza a venda de sorvete e o controlo de estoque, ele regista os pedidos no caixa com cálculo automático do total e dá baixa no stock a cada venda, eliminando filas e erros manuais.gestão da loja.
+## Diagrama de sequência
 
-## Documento do projeto
+**Figura 6 – Diagrama de sequência de Registrar pedido**
 
-A numeração é a do modelo de trabalho do IFPR, a mesma dos trabalhos de Projeto e Desenvolvimento de Sistemas. Quando uma seção ficar pronta, troque o ⬜ por ✅.
+![Diagrama de sequência de Registrar pedido: cinco linhas de vida, oito mensagens, seis retornos e um fragmento alt](../diagramas/sequencia.png)
 
-| Seção | Arquivo | Situação |
-|---|---|---|
-| 3.1 Abordagem de Desenvolvimento | [docs/3.1-abordagem-de-desenvolvimento.md](docs/3.1-abordagem-de-desenvolvimento.md) | ⬜ |
-| 3.2 Ferramentas e Tecnologias | [docs/3.2-ferramentas-e-tecnologias.md](docs/3.2-ferramentas-e-tecnologias.md) | ⬜ |
-| 3.3 Arquitetura do Sistema | [docs/3.3-arquitetura-do-sistema.md](docs/3.3-arquitetura-do-sistema.md) | ⬜ |
-| 4.1 Descrição do Projeto | [docs/4.1-descricao-do-projeto.md](docs/4.1-descricao-do-projeto.md) | ⬜ |
-| 4.2 Análise do Sistema | [docs/4.2-analise-do-sistema.md](docs/4.2-analise-do-sistema.md) | ⬜ |
-| 4.2.1 Levantamento de Requisitos | [docs/4.2.1-levantamento-de-requisitos.md](docs/4.2.1-levantamento-de-requisitos.md) | ⬜ |
-| 4.2.2 Modelagem de Casos de Uso | [docs/4.2.2-casos-de-uso.md](docs/4.2.2-casos-de-uso.md) | ⬜ |
-| 4.2.3 Modelagem de Classes | [docs/4.2.3-classes.md](docs/4.2.3-classes.md) | ⬜ |
-| 4.2.4 Modelagem de Sequência | [docs/4.2.4-sequencia.md](docs/4.2.4-sequencia.md) | ⬜ |
-| 4.2.5 Modelagem de Atividade | [docs/4.2.5-atividade.md](docs/4.2.5-atividade.md) | ⬜ |
-| 4.2.6 Modelagem de Banco de Dados | [docs/4.2.6-banco-de-dados.md](docs/4.2.6-banco-de-dados.md) | ⬜ |
-| 4.2.7 Design de Interface | [docs/4.2.7-design-de-interface.md](docs/4.2.7-design-de-interface.md) | ⬜ |
+Fonte: Autoria própria (2026).
 
-## Tecnologias
+A Figura 6 tem cinco linhas de vida. A da esquerda é o **Atendente**, o ator, do lado de fora. A segunda é o **:Sistema**. As outras três são objetos das classes da 4.2.3 que participam ativamente da operação: `:Sabor`, `:ItemPedido` e `:Pedido`. Os dois-pontos antes do nome indicam um objeto instanciado da respectiva classe.
 
-> 🔒 Preenchida na Aula 30, junto com a seção 3.2. Aqui entra um resumo das ferramentas com que o sistema seria construído.
+O tempo corre de cima para baixo. As **mensagens** são as setas cheias, e são oito no total. Três saem do Atendente para o `:Sistema` levando os nomes das ações da 4.2.5. Cinco saem do `:Sistema` para as classes de domínio com os nomes das operações entre parênteses.
 
-## Demonstração
+Os **retornos** são as setas tracejadas, e são seis. Cada retorno devolve o resultado da consulta ou processamento para quem solicitou. As operações `fecharPedido()` e `baixarEstoque()` não possuem retorno próprio desenhado pois apenas alteram o estado interno dos objetos (`void`), gerando ao final a confirmação visual para o Atendente.
 
-> 🔒 Preenchida na Aula 29, junto com a seção 4.2.7. Aqui entra a imagem da tela principal do protótipo.
+O quadro com a aba **alt** é o fragmento da exceção E1. Ele divide a conversa em dois andares separados por uma linha tracejada, onde apenas um caminho é executado. Com `[sabor disponível]`, o fluxo segue pelos passos 3 a 6 até o registro do pedido. Com `[senão]`, o Sistema retorna o aviso de indisponibilidade de estoque diretamente ao Atendente e encerra sem registrar nada.
 
-## Como este repositório funciona
+`Gerente` não possui linha de vida neste diagrama porque não interage no caso de uso de registro de pedido.
 
-Cada seção do documento mora num arquivo dentro de `docs/`, com o número do modelo do IFPR no nome. Não renomeie esses arquivos. É pelo nome que eu encontro cada seção na hora de corrigir.
+## Rastreabilidade com a 4.2.3
 
-As seções entram uma por aula. Enquanto a vez de uma seção não chega, o arquivo dela mostra um cadeado 🔒. Na aula, o molde chega pelo AVA junto com a mesma seção pronta do BiblioTech.
+| Mensagem | Chega em | Operação na 4.2.3 | Passo da 4.2.2 |
+|---|---|---|---|
+| estaDisponivel() | :Sabor | `Sabor`, + estaDisponivel(): boolean | passo 2 |
+| calcularSubtotal() | :ItemPedido | `ItemPedido`, + calcularSubtotal(): double | passo 4, primeira parte |
+| calcularTotal() | :Pedido | `Pedido`, + calcularTotal(): double | passo 4, segunda parte |
+| fecharPedido() | :Pedido | `Pedido`, + fecharPedido(): void | passo 6, primeira parte |
+| baixarEstoque() | :Sabor | ❓ verificar assinatura na 4.2.3 (`atualizarEstoque` ou `baixarEstoque`) | passo 6, segunda parte |
+| Identificar o sabor, Informar quantidade e adicionar item, Confirmar fechamento do pedido | :Sistema | nenhuma: são as três ações da raia do Atendente na 4.2.5 | passos 1, 3 e 5 |
 
-Os diagramas vão para `diagramas/`, sempre em dois arquivos com o mesmo nome. O `.drawio` serve para editar, e o `.png` aparece na página. As telas do protótipo vão para `prototipos/`.
+**Toda mensagem com parênteses chega em quem tem a operação.** As mensagens enviadas pelo `:Sistema` são direcionadas exatamente às classes detentoras dos dados necessários para responder ou executar a ação.
 
-## O exemplo do BiblioTech
+**Todo passo tem mensagem.** Os seis passos do fluxo principal estão representados na ordem cronológica de cima para baixo, e a exceção E1 está tratada no fragmento `alt`. O alternativo A1 ficou de fora de propósito conforme justificado na tabela de tradução.
 
-A pasta [`exemplo-bibliotech/`](exemplo-bibliotech/) tem as seções do BiblioTech já resolvidas, com os mesmos nomes de arquivo do seu `docs/`. Quando travar, abra a seção do BiblioTech ao lado da sua e pergunte o que eu fiz ali naquele ponto. Copiar a frase trocando o nome do sistema não conta como seção feita.
+**O que o desenho mudou nas classes.** O passo 6 exige registrar o pedido e atualizar o estoque. Ao traçar a seta para `:Sabor`, confirmou-se a necessidade de uma operação explícita de baixa de estoque (`baixarEstoque()`) na classe `Sabor` para manter a consistência entre o diagrama de sequência e o diagrama de classes.
 
-O exemplo cresce a cada aula no [repositório do modelo](https://github.com/Profe-Berssa-IFPR/2026-APS-modelo/tree/main/exemplo-bibliotech). A cópia que veio para o seu repositório para na seção que existia no dia em que você o criou. Para ver as seções novas, é lá que você olha.
-
----
-
-**Profe. Berssa** | Dr. João Henrique Berssanette
+❓ Para a próxima revisão da 4.2.3: garantir que a classe `Sabor` possua formalmente a operação `baixarEstoque(): void` com este exato nome para fechar a rastreabilidade.
